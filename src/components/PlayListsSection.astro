@@ -3,12 +3,14 @@ import { playlists } from "@/lib/data";
 import PlayListItemCard from '../components/PlayListItemCard.astro';
 
 const {sectionTitle} = Astro.props;
+
+const id = 1;
 ---
 
 <section class="mt-10">
   <div class="flex justify-between">
     <h2 class="text-2xl font-bold text-white">{sectionTitle}</h2>
-    <a href="/" class="text-sm text-zinc-400 font-bold hover:underline">Mostrar todo</a>
+    <a href={`/section/${id}`} class="text-sm text-zinc-400 font-bold hover:underline" transition:name=`section ${id} box`>Mostrar todo</a>
   </div>
   
   <div class="grid grid-cols-5 mt-2 mb-8 gap-x-6 gap-y-6 ">
