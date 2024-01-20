@@ -1,0 +1,10 @@
+---
+import { playlists } from "@/lib/data";
+import RecentlyPlayedItem from "../components/RecentlyPlayedItem.astro";
+---
+
+<div class="grid grid-cols-3 gap-3 mt-3">
+  {playlists.map(playlist=> (
+   <RecentlyPlayedItem playlist={playlist} />
+  ))}
+</div>
