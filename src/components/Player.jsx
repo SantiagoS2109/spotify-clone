@@ -1,6 +1,7 @@
 import { usePlayerStore } from "@/store/playerStore";
 import { useEffect, useRef, useState } from "react";
 import { Slider } from "./Slider";
+import { useMenuStore } from "@/store/menuStore";
 
 export const Pause = ({ className }) => (
   <svg
@@ -84,6 +85,21 @@ export const Previous = () => (
     viewBox="0 0 16 16"
   >
     <path d="M3.3 1a.7.7 0 0 1 .7.7v5.15l9.95-5.744a.7.7 0 0 1 1.05.606v12.575a.7.7 0 0 1-1.05.607L4 9.149V14.3a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7h1.6z"></path>
+  </svg>
+);
+
+export const Listening = () => (
+  <svg
+    role="img"
+    height="16"
+    width="16"
+    fill="currentColor"
+    aria-hidden="true"
+    aria-label="Vista estás escuchando"
+    viewBox="0 0 16 16"
+  >
+    <path d="M11.196 8 6 5v6l5.196-3z"></path>
+    <path d="M15.002 1.75A1.75 1.75 0 0 0 13.252 0h-10.5a1.75 1.75 0 0 0-1.75 1.75v12.5c0 .966.783 1.75 1.75 1.75h10.5a1.75 1.75 0 0 0 1.75-1.75V1.75zm-1.75-.25a.25.25 0 0 1 .25.25v12.5a.25.25 0 0 1-.25.25h-10.5a.25.25 0 0 1-.25-.25V1.75a.25.25 0 0 1 .25-.25h10.5z"></path>
   </svg>
 );
 
@@ -207,6 +223,8 @@ export function Player() {
   const audioRef = useRef(null);
   const volumeRef = useRef(null);
 
+  const { isOpen, setIsOpen } = useMenuStore((state) => state);
+
   useEffect(
     function () {
       isPlaying ? audioRef.current.play() : audioRef.current.pause();
@@ -253,8 +271,7 @@ export function Player() {
 
   function handleNext() {
     const { song, playlist, songs } = currentMusic;
-    console.log(song);
-    console.log(songs);
+
     const index = songs.findIndex((s) => s.id === song.id);
 
     const nextSong = songs[index + 1];
@@ -299,7 +316,17 @@ export function Player() {
         </div>
       </div>
 
-      <div className="grid justify-end">
+      <div className="flex gap-3 items-center justify-end">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`transition-all hover:scale-105 ${
+            isOpen ? "text-green-500" : "text-[#b3b3b3] hover:text-white"
+          }`}
+        >
+          <span>
+            <Listening />
+          </span>
+        </button>
         <VolumeControl />
       </div>
 

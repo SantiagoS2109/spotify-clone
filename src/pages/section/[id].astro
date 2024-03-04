@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import { allPlaylists, songs } from '../../lib/data';
 import Navigation from "../../components/Navigation"
 import PlayListItemCard from '../../components/PlayListItemCard.astro';
+import GridPlaylists from '@/components/GridPlaylists';
 
 const {id} = Astro.params
 
@@ -23,11 +24,11 @@ const sectionTitle = "Hecho para ti"
         <h2 class="text-2xl font-bold text-white">{sectionTitle}</h2>
       </div>
 
-      <div class="grid grid-cols-5 mt-2 mb-8 gap-x-6 gap-y-6 ">
+      <GridPlaylists columns={5} client:visible>
         {
           allPlaylists.map(playlist => <PlayListItemCard playlist={playlist} />)
         }
-      </div>  
+      </GridPlaylists>
 
     </main>
 	</div>
